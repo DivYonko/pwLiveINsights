@@ -1,0 +1,20 @@
+__pycache__/
+*.py[cod]
+*.pyo
+.env
+*.env
+.venv/
+venv/
+env/
+
+# ML model weights (too large for git — upload separately or use HF hub)
+new_trained_data/
+
+# Redis data
+*.rdb
+
+# Redis binary folder
+Redis-x64-5.0.14.1/
+
+# Debug scripts
+debug_sentiment.py
