@@ -8,6 +8,7 @@ streamlit
 pandas
 plotly
 emoji
+gdown
 
 # Core ML
 torch>=2.0.0
