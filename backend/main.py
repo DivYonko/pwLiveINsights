@@ -23,6 +23,11 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 from backend.config import REDIS_HOST, REDIS_PORT, REDIS_DB
+import os
+
+if not os.path.exists("new_trained_data/muril-sentimix"):
+    import download_data
+
 
 # ── App ────────────────────────────────────────────────────────────────────────
 app = FastAPI(
