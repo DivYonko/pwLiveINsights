@@ -1,6 +1,6 @@
 import os
 
-VIDEO_ID   = os.getenv("VIDEO_ID", "J3qcYJAhCMY")
-REDIS_HOST = os.getenv("REDIS_HOST", "localhost")
-REDIS_PORT = int(os.getenv("REDIS_PORT", 6379))
-REDIS_DB   = int(os.getenv("REDIS_DB", 0))
+VIDEO_ID = os.getenv("VIDEO_ID", "J3qcYJAhCMY")
+
+# Use Redis URL (Railway compatible)
+REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379")
