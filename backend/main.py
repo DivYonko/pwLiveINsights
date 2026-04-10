@@ -27,7 +27,10 @@ import os
 if not os.path.exists("new_trained_data/muril-sentimix"):
     import download_data
 
+import threading
+from backend.scraper import run
 
+threading.Thread(target=run, daemon=True).start()
 # ── App ────────────────────────────────────────────────────────────────────────
 app = FastAPI(
     title="YouTube Live Chat Insights API",
