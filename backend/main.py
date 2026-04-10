@@ -22,7 +22,6 @@ import redis
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
-from backend.config import REDIS_HOST, REDIS_PORT, REDIS_DB
 import os
 
 if not os.path.exists("new_trained_data/muril-sentimix"):
@@ -44,12 +43,9 @@ app.add_middleware(
 )
 
 # ── Redis ──────────────────────────────────────────────────────────────────────
-r = redis.Redis(
-    host=REDIS_HOST,
-    port=REDIS_PORT,
-    db=REDIS_DB,
-    decode_responses=True,
-    socket_connect_timeout=5,
+r = redis.from_url(
+    os.getenv("REDIS_URL", "redis://localhost:6379"),
+    decode_responses=True
 )
 
 VALID_TOPICS    = {"Appreciation", "Question", "Promo", "Spam", "General"}
@@ -81,7 +77,10 @@ def _redis_check():
 def health():
     """Check Redis connectivity."""
     _redis_check()
-    return {"status": "ok", "redis": f"{REDIS_HOST}:{REDIS_PORT}"}
+    return {
+        "status": "ok",
+        "redis": os.getenv("REDIS_URL")
+    }
 
 
 @app.get("/get_messages")
