@@ -19,12 +19,8 @@ from datetime import datetime
 import pytchat
 import redis
 
-from backend.config import (
-    VIDEO_ID,
-    REDIS_HOST,
-    REDIS_PORT,
-    REDIS_DB,
-)
+from backend.config import VIDEO_ID
+import os
 from ml.sentiment_model import predict_sentiment
 from ml.topic_model import predict_topic, VALID_TOPICS
 
@@ -37,12 +33,9 @@ logging.basicConfig(
 logger = logging.getLogger("scraper")
 
 # ── Redis connection ───────────────────────────────────────────────────────────
-r = redis.Redis(
-    host=REDIS_HOST,
-    port=REDIS_PORT,
-    db=REDIS_DB,
-    decode_responses=True,
-    socket_connect_timeout=5,
+r = redis.from_url(
+    os.getenv("REDIS_URL", "redis://localhost:6379"),
+    decode_responses=True
 )
 
 try:
